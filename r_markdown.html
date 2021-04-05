@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>R Markdown</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <meta name="date" content="2021-04-04" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: middle, center, middle
+
+# R Markdown
+
+&lt;br&gt;&lt;br&gt;.large[Maria C. Ramos| MiR Study Group | 04 Apr 2021]
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;<i class="fas  fa-link "></i>.large[mariacramos.com]
+&lt;br&gt;&lt;br&gt;<i class="fab  fa-twitter "></i>.large[@mariacramosf]
+---
+class: top, left
+
+
+# Outline
+
+* reading files 
+
+* parsing files
+
+* parsing vectors
+
+
+---
+class: top, left
+
+# Why R Markdown
+
+1. Organization: Code, results, comments in one place&lt;br&gt;
+
+2. Reproducibility&lt;br&gt;
+
+3. Collaboration&lt;br&gt;
+
+4. Communicating with stakeholders with no coding expertise
+
+---
+class: top, left
+
+# Types of content
+
+1. YAML header&lt;br&gt;
+
+2. Chunks of code &amp; code outputs&lt;br&gt;
+
+3. Text (can be formatted)&lt;br&gt;
+
+---
+class: top, left
+
+# Workflow &amp; Shortcuts
+
+.center[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Action &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; What it Does &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Shortcut &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; knit document &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; produces complete report (text, code, and results) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Cmd/Ctrl + Shift + K &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; run chunk &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; executes code and displays results for a chunk &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Cmd/Ctrl + Shift + Enter &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; create chunk &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; inserts new chunk inside the document &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Cmd/Ctrl + Alt + I &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+class: top, left
+
+# Text Formatting 
+
+Most common tasks include:
+
+Formatting text itself (using italics, bold, superscripts and subscripts)
+
+- Create header structure
+
+- Create comments that do not appear in the final output
+ 
+- Insert hyperlinks and images
+
+- Create numbered or bulleted lists
+ 
+- Insert tables, breaks, and footnotes&lt;br&gt;
+
+
+** Cheatsheet is helpful **
+---
+# Text Formatting
+
+You can also refer to aspects of your data in the main text. This is called **Inline Code**
+
+---
+#Chunks
+
+## Naming chunks
+
+- Easier to navigate within the document&lt;br&gt;
+
+- Easier to find for reuse&lt;br&gt;
+
+- Easier for cached chunks&lt;br&gt;&lt;br&gt;
+
+** Assign different names to each chunk!**
+
+---
+#Chunks
+
+## Chunk Options
+
+![Useful table of chunk options from R4DS book](images/table_chunk_options.png)
+
+---
+# Tables
+
+.pull-left[
+
+```r
+*mtcars[1:5, 1:2]
+```
+
+```
+##                    mpg cyl
+## Mazda RX4         21.0   6
+## Mazda RX4 Wag     21.0   6
+## Datsun 710        22.8   4
+## Hornet 4 Drive    21.4   6
+## Hornet Sportabout 18.7   8
+```
+]
+
+.pull-right[
+
+```r
+*knitr::kable(
+  mtcars[1:5, 1:2], 
+  caption = "A knitr kable."
+)
+```
+
+
+
+Table: A knitr kable.
+
+|                  |  mpg| cyl|
+|:-----------------|----:|---:|
+|Mazda RX4         | 21.0|   6|
+|Mazda RX4 Wag     | 21.0|   6|
+|Datsun 710        | 22.8|   4|
+|Hornet 4 Drive    | 21.4|   6|
+|Hornet Sportabout | 18.7|   8|
+]
+---
+# Tables
+.center[
+
+```r
+knitr::kable(
+  mtcars[1:5, 1:2], 
+  caption = "A knitr kable.", 
+* col.names = c("Miles per galon", "Cylinders"))
+```
+
+
+
+Table: A knitr kable.
+
+|                  | Miles per galon| Cylinders|
+|:-----------------|---------------:|---------:|
+|Mazda RX4         |            21.0|         6|
+|Mazda RX4 Wag     |            21.0|         6|
+|Datsun 710        |            22.8|         4|
+|Hornet 4 Drive    |            21.4|         6|
+|Hornet Sportabout |            18.7|         8|
+]
+
+---
+
+# Caching
+
+
+```r
+rawdata &lt;- readr::read_csv("a_very_large_file.csv")
+```
+
+
+```r
+processed_data &lt;- rawdata %&gt;% 
+  filter(!is.na(import_var)) %&gt;% 
+  mutate(new_variable = complicated_transformation(x, y, z))
+```
+
+** ignores dependencies **
+---
+# Caching
+
+
+```r
+processed_data &lt;- rawdata %&gt;% 
+  filter(!is.na(import_var)) %&gt;% 
+  mutate(new_variable = complicated_transformation(x, y, z))
+```
+
+---
+class: middle, center, middle
+# Parameters
+
+
+---
+
+
+
+
+# Reading Files 
+
+### Step 2: Take care of general aspects (column names, metadata, and NAs)
+
+#### Focus on most commonly used function `read_csv`
+
+---
+
+by default, `read_csv()` reads first line as column names
+
+## Problem focused strategies 
+
+.center[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; problem &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; strategy &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; n first rows have metadata &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; use argument skip = n to skip first n rows &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; observations that start with '#' are actually comments &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; use argument comment = to skip lines that start with a symbol &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; first row does not contain the column names &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; use argument col_names = FALSE to avoid treating first row as column names or set col_names = c(set of col names) to manually set column names &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; different coding of NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; use argument na = to specify which values to treat as NA &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+
+# Reading Files 
+
+### Step 3: Ensure R correctly classifies the data types within the file (parsing) 
+
+#### How parsing works 
+
+* readr reads the first 1000 rows and parses the data type of each column.
+* If no other match is found, columns are parsed as character.
+
+---
+
+## Common file parsing problems
+
+* first 1000 rows might not be representative
+* there are too many NAs
+
+## General file parsing strategies 
+
+* column by column assess parsing and correct (if needed)
+* use `problems()` to see parsing problems
+* use argument `col_types = cols()` to specify the correct parsing for each column
+
+
+
+```r
+myfile &lt;- read_csv("filepath.csv",
+*                  col_types = cols(
+*                    x = col_double(),
+*                    y = col_date(),
+*                    z = col_character()
+                   ))
+```
+
+---
+
+### Other file parsing tips
+
+* can parse every column as character and go from there
+
+
+```r
+myfile &lt;- read_csv("filepath.csv", 
+*          col_types = cols(
+*            .default = col_character()
+           ))
+```
+
+* If working with very large file, use argument `n_max` to increase the number of rows used to parse. 
+
+---
+# Parsing vectors 
+
+### Parsing a file versus parsing vectors 
+
+`parse_*()` takes a character vector and transforms it into a vector of another type. 
+
+.center[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; files &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; vectors &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; get data into R &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; data already in R &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; uses col_* argument &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; uses parse_* functions &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+
+# Parsing Functions
+
+.center[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; functions &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; parse_double() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; parse_number() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; parse_logical() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; parse_character() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; parse_integer() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; parse_datetime() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; parse_date() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; parse_time() &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+
+# When Parsing Fails...
+
+* You will get a warning with first failures
+
+* Parsing failures will be missing from the output
+
+* Use `problems()` to get complete list of failures
+
+---
+
+# Parsing Numbers
+
+.center[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; issues &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; solutions &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; decimal marks vary &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; use parse_double(vector, locale = locale(decimal_mark = )) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; some text is surrounding the number (e.g., $, USD, %) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; use parse_number -&amp;gt; automatically removes surrounding text &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; grouping marks vary &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; use parse_number with argument locale = locale(grouping_mark = ) &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+.pull-left[
+**Decimal Mark**
+
+```r
+numeric_vector &lt;- 
+  parse_double(vector,
+               locale = 
+                 locale(
+*                  decimal_mark = ".")))
+```
+]
+
+.pull-right[
+**Grouping Mark** 
+
+```r
+numeric_vector &lt;- 
+  parse_number(vector, 
+               locale = 
+                 locale(
+*                  grouping_mark = ",")))
+```
+]
+
+---
+# Parsing Characters 
+
+**Key issue:** encoding
+
+* Look at your data. If you find weird characters, R did not correctly detect the encoding
+
+### Solutions
+
+.center[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; situation &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; solutions &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; if you know then encoding &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; use argument locale = locale(encoding = ) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; if you don't know the encoding &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; use guess_encoding(charToRaw(vector or file name)). Then try the encodings with argument locale in cell above &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+
+# Solutions to Encoding Issues
+
+.pull-left[
+**You know the encoding**
+
+```r
+character_vector &lt;- 
+  parse_character(vector,
+               locale = 
+                 locale(
+*                  encoding = "Latin1")))
+```
+]
+
+.pull-right[
+**You don't know the encoding** 
+
+```r
+guess_encoding(charToRaw(vector_name))
+```
+]
+
+
+---
+
+# Parsing Factors 
+
+**Key issue:** inconsistent names for levels
+
+**Detection:** check the levels of your vector after parsing
+
+**Solution:** provide level names with `levels =` argument 
+
+---
+ 
+# Parsing Dates and Times
+
+**Key issue:** Data format doesn't match format parsing function expects
+
+**Solution:** Use argument `format =` inside the parsing function
+
+.center[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; functions &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; expected_format &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; parse_datetime() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; year, month, day in descending order &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; parse_date() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1999-02-27 or 1999/02/27 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; parse_time() &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 23:20:20am - min, sec, and am/pm are optional &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+
+---
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

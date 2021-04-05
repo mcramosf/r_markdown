@@ -1,0 +1,43 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will 
+
+```{r cars}
+summary(cars)
+```
+
+# Plots 
+
+```{r pressure}
+plot(pressure)
+```
+
+# Text Formatting 
+
+The cars dataset has `r nrow(cars)` observations 
+
+
+# Chunk Naming
+
+```{r a}
+#comment 1
+```
+
+```{r b}
+#comment 2
+```
+
+
+
+

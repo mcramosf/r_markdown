@@ -11,13 +11,12 @@ output:
     nature:
       highlightStyle: github
       highlightLines: true
-      countIncrementalSlides: false
 ---
 class: middle, center, middle
 
 # R Markdown
 
-<br><br>.large[Maria C. Ramos| MiR Study Group | 20 Feb 2021]
+<br><br>.large[Maria C. Ramos| MiR Study Group | 04 Apr 2021]
 
 <br><br><br>`r icon::fa("link")`.large[mariacramos.com]
 <br><br>`r icon::fa("twitter")`.large[@mariacramosf]
@@ -29,287 +28,151 @@ knitr::opts_chunk$set(fig.retina = 3, warning = FALSE, message = FALSE)
 library(tidyverse)
 ```
 
-# Outline
-
-* reading files 
-
-* parsing files
-
-* parsing vectors
-
-
 ---
-class: middle, center, middle
+class: top, left
 
 # Why R Markdown
 
-## 1) Code 
-## 2) Results
-## 3) Comment 
-## 4) 
+1. Organization: Code, results, comments in one place<br>
+
+2. Reproducibility<br>
+
+3. Collaboration<br>
+
+4. Communicating with stakeholders with no coding expertise
 
 ---
+class: top, left
 
-# Reading Files: General Strategy 
+# Types of content
 
-### Step 1: select the appropriate package and function according to the format of your data file (reading)
+1. YAML header<br>
 
---
+2. Chunks of code & code outputs<br>
 
-### Step 2: Take care of general aspects (column names, metadata, and NAs)
-
---
-
-### Step 3: Ensure R correctly classifies the data types within the file (parsing)
+3. Text (can be formatted)<br>
 
 ---
-# Reading Files 
+class: top, left
 
-### Step 1: select the appropriate package and function according to the format of your data file 
-
-#### Package readr
+# Workflow & Shortcuts
 
 .center[
 ```{r, echo=FALSE}
-dfn <- data.frame(`readr function` = c("read_csv( )", 
-                               "read_csv2( )",
-                               "read_tsv( )", 
-                               "read_delim( )", 
-                               "read_fwf( )",
-                               "read_table( )", 
-                               "read_log( )"),
-                  `file format`=c("comma delimited", "semicolon delimited", "tab delimited", "any delimited", "fixed width", "fixed width delimited by white space", "Apache style files"))
+dfn <- data.frame(`Action` = c("knit document", 
+                               "run chunk",
+                               "create chunk"),
+                  `What it Does`=c("produces complete report (text, code, and results)", "executes code and displays results for a chunk", "inserts new chunk inside the document"),`Shortcut`=c("Cmd/Ctrl + Shift + K", "Cmd/Ctrl + Shift + Enter", "Cmd/Ctrl + Alt + I"))
 dfn %>%
-   knitr::kable("html")
+   knitr::kable("html",
+                col.names = c("Action",
+                           "What it Does",
+                           "Shortcut"))
 ```
 ]
 
 ---
-# Reading Files 
+class: top, left
 
-### Step 1: select the appropriate package and function according to the format of your data file 
+# Text Formatting 
 
-#### Other packages  
+Most common tasks include:
 
-.center[
-```{r, echo=FALSE}
-dfn2 <- data.frame(`package` = c("haven", 
-                               "readxl",
-                               "DBI"),
-                  `data format`=c("SPSS, SAS, Stata", "excel files", "SQL"))
-dfn2 %>%
-   knitr::kable("html")
-```
-]
+Formatting text itself (using italics, bold, superscripts and subscripts)
 
----
+- Create header structure
 
-# Reading Files 
-
-### Step 2: Take care of general aspects (column names, metadata, and NAs)
-
-#### Focus on most commonly used function `read_csv`
-
----
-
-by default, `read_csv()` reads first line as column names
-
-## Problem focused strategies 
-
-.center[
-```{r, echo=FALSE}
-dfn3 <- data.frame(problem = c("n first rows have metadata", "observations that start with '#' are actually comments","first row does not contain the column names", "different coding of NA"), strategy =c("use argument skip = n to skip first n rows", "use argument comment = to skip lines that start with a symbol", "use argument col_names = FALSE to avoid treating first row as column names or set col_names = c(set of col names) to manually set column names", "use argument na = to specify which values to treat as NA"))
-dfn3 %>%
-   knitr::kable("html")
-```
-]
-
----
-
-# Reading Files 
-
-### Step 3: Ensure R correctly classifies the data types within the file (parsing) 
-
-#### How parsing works 
-
-* readr reads the first 1000 rows and parses the data type of each column.
-* If no other match is found, columns are parsed as character.
-
----
-
-## Common file parsing problems
-
-* first 1000 rows might not be representative
-* there are too many NAs
-
-## General file parsing strategies 
-
-* column by column assess parsing and correct (if needed)
-* use `problems()` to see parsing problems
-* use argument `col_types = cols()` to specify the correct parsing for each column
-
-
-```{r, eval=FALSE}
-myfile <- read_csv("filepath.csv",
-                   col_types = cols(#<<
-                     x = col_double(), #<<
-                     y = col_date(), #<<
-                     z = col_character()#<<
-                   ))
-```
-
----
-
-### Other file parsing tips
-
-* can parse every column as character and go from there
-
-```{r, eval=FALSE}
-myfile <- read_csv("filepath.csv", 
-           col_types = cols(#<<
-             .default = col_character()#<<
-           ))
-```
-
-* If working with very large file, use argument `n_max` to increase the number of rows used to parse. 
-
----
-# Parsing vectors 
-
-### Parsing a file versus parsing vectors 
-
-`parse_*()` takes a character vector and transforms it into a vector of another type. 
-
-.center[
-```{r, echo=FALSE}
-dfn4 <- data.frame(files = c("get data into R", "uses col_* argument" ), vectors =c("data already in R", "uses parse_* functions"))
-dfn4 %>%
-   knitr::kable("html")
-```
-]
-
----
-
-# Parsing Functions
-
-.center[
-```{r, echo=FALSE}
-dfn5 <- data.frame(functions = c("parse_double()", "parse_number()", "parse_logical()", "parse_character()", "parse_integer()", "parse_datetime()", "parse_date()", "parse_time()"))
-dfn5 %>%
-   knitr::kable("html")
-```
-]
-
----
-
-# When Parsing Fails...
-
-* You will get a warning with first failures
-
-* Parsing failures will be missing from the output
-
-* Use `problems()` to get complete list of failures
-
----
-
-# Parsing Numbers
-
-.center[
-```{r, echo=FALSE}
-dfn6 <- data.frame(issues = c("decimal marks vary", "some text is surrounding the number (e.g., $, USD, %)", "grouping marks vary"), solutions =c("use parse_double(vector, locale = locale(decimal_mark = ))", "use parse_number -> automatically removes surrounding text", " use parse_number with argument locale = locale(grouping_mark = )"))
-dfn6 %>%
-   knitr::kable("html")
-```
-]
-
-.pull-left[
-**Decimal Mark**
-```{r, eval=FALSE}
-numeric_vector <- 
-  parse_double(vector,
-               locale = 
-                 locale(
-                   decimal_mark = ".")))#<<
-```
-]
-
-.pull-right[
-**Grouping Mark** 
-```{r, eval=FALSE}
-numeric_vector <- 
-  parse_number(vector, 
-               locale = 
-                 locale(
-                   grouping_mark = ",")))#<<
-```
-]
-
----
-# Parsing Characters 
-
-**Key issue:** encoding
-
-* Look at your data. If you find weird characters, R did not correctly detect the encoding
-
-### Solutions
-
-.center[
-```{r, echo=FALSE}
-dfn7 <- data.frame(situation = c("if you know then encoding", "if you don't know the encoding"), solutions =c("use argument locale = locale(encoding = )", "use guess_encoding(charToRaw(vector or file name)). Then try the encodings with argument locale in cell above"))
-dfn7 %>%
-   knitr::kable("html")
-```
-]
-
----
-
-# Solutions to Encoding Issues
-
-.pull-left[
-**You know the encoding**
-```{r, eval=FALSE}
-character_vector <- 
-  parse_character(vector,
-               locale = 
-                 locale(
-                   encoding = "Latin1")))#<<
-```
-]
-
-.pull-right[
-**You don't know the encoding** 
-```{r, eval=FALSE}
-guess_encoding(charToRaw(vector_name))
-```
-]
-
-
----
-
-# Parsing Factors 
-
-**Key issue:** inconsistent names for levels
-
-**Detection:** check the levels of your vector after parsing
-
-**Solution:** provide level names with `levels =` argument 
-
----
+- Create comments that do not appear in the final output
  
-# Parsing Dates and Times
+- Insert hyperlinks and images
 
-**Key issue:** Data format doesn't match format parsing function expects
+- Create numbered or bulleted lists
+ 
+- Insert tables, breaks, and footnotes<br>
 
-**Solution:** Use argument `format =` inside the parsing function
 
-.center[
-```{r, echo=FALSE}
-dfn8 <- data.frame(functions = c("parse_datetime()", "parse_date()", "parse_time()"),  expected_format = c("year, month, day in descending order", "1999-02-27 or 1999/02/27", "23:20:20am - min, sec, and am/pm are optional"))
-dfn8 %>%
-   knitr::kable("html")
+** Cheatsheet is helpful **
+---
+class: center, middle, center
+# Text Formatting
+
+You can also refer to aspects of your data in the main text. This is called **Inline Code**
+
+---
+#Chunks
+
+## Naming chunks
+
+- Easier to navigate within the document<br>
+
+- Easier to find for reuse<br>
+
+- Easier for cached chunks<br><br>
+
+** Assign different names to each chunk!**
+
+---
+#Chunks
+
+## Chunk Options
+
+![Useful table of chunk options from R4DS book](images/table_chunk_options.png)
+
+---
+# Tables
+
+.pull-left[
+```{r}
+mtcars[1:5, 1:2] #<<
 ```
 ]
 
+.pull-right[
+```{r}
+knitr::kable( #<<
+  mtcars[1:5, 1:2], 
+  caption = "A knitr kable."
+)
+```
+]
+---
+# Tables
+.center[
+```{r}
+knitr::kable(
+  mtcars[1:5, 1:2], 
+  caption = "A knitr kable.", 
+  col.names = c("Miles per galon", "Cylinders")) #<<
+```
+]
+
+---
+
+# Caching
+
+```{r raw_data, eval= FALSE}
+rawdata <- readr::read_csv("a_very_large_file.csv")
+```
+
+```{r processed_data, cache = TRUE, eval=FALSE}
+processed_data <- rawdata %>% 
+  filter(!is.na(import_var)) %>% 
+  mutate(new_variable = complicated_transformation(x, y, z))
+```
+
+** ignores dependencies **
+---
+# Caching
+
+```{r processed_data_2, cache = TRUE, dependson = "raw_data", eval=FALSE}
+processed_data <- rawdata %>% 
+  filter(!is.na(import_var)) %>% 
+  mutate(new_variable = complicated_transformation(x, y, z))
+```
+
+---
+class: middle, center, middle
+# Parameters
 
 ---
 class: center, middle
